@@ -23,9 +23,6 @@ public class Env : MonoBehaviour
     [SerializeField] private ParticleSystem burnSpellEffect;
     [SerializeField] private ParticleSystem freezeSpellEffect;
     [SerializeField] private ParticleSystem healSpellEffect;
-    private const KeyCode burnSpellKey = KeyCode.Q;
-    private const KeyCode freezeSpellKey = KeyCode.W;
-    private const KeyCode healSpellKey = KeyCode.E;
     private const float burnSpellDuration = 5f;
     private const float freezeSpellDuration = 5f;
     private const float healSpellAmount = 3f;
@@ -37,84 +34,8 @@ public class Env : MonoBehaviour
     public float burnSpellDamage = 1f;
     #endregion
 
-    public void GainMana(int value) {
-        mana += value;
-        UpdateManaUI();
-    }
-
-    public void UseMana(int value) {
-        mana -= value;
-        UpdateManaUI();
-    }
-
-    private void UpdateManaUI() {
-        manaUI.text = "Mana: " + mana;
-    }
-
-    private void DisableBurnSpell() {
-        burnSpellOn = false;
-    }
-
-    public void BurnSpell() {
-        if (mana >= burnSpellCost) {
-            UseMana(burnSpellCost);
-            burnSpellOn = true;
-            Invoke("DisableBurnSpell", burnSpellDuration);
-            burnSpellEffect.Play();
-        }
-    }
-
-    private void DisableFreezeSpell() {
-        freezeSpellOn = false;
-    }
-
-    public void FreezeSpell() {
-        if (mana >= freezeSpellCost) {
-            UseMana(freezeSpellCost);
-            freezeSpellOn = true;
-            Invoke("DisableFreezeSpell", freezeSpellDuration);
-            freezeSpellEffect.Play();
-        }
-    }
-
-    public void HealSpell() {
-        if (tower && mana >= healSpellCost) {
-            UseMana(healSpellCost);
-            tower.GetComponent<Tower>().Heal(healSpellAmount);
-            healSpellEffect.Play();
-        }
-    }
-
-    private void SpawnEnemy() {
-        int xRand = Random.Range(-1, 2);
-        int yRand = Random.Range(-1, 2);
-
-        if (xRand == 0 && yRand == 0) {
-            xRand = 1;
-        }
-
-        Vector2 position = new Vector2(xRand * xPositionLimit, yRand * yPositionLimit);
-
-        Instantiate(enemy, position, Quaternion.identity);
-    }
-
-    public void Defeat() {
-        SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
-    }
-
-    private void Controls() {
-        if (Input.GetKeyDown(burnSpellKey)) {
-            BurnSpell();
-        }
-        if (Input.GetKeyDown(freezeSpellKey)) {
-            FreezeSpell();
-        }
-        if (Input.GetKeyDown(healSpellKey)) {
-            HealSpell();
-        }
-    }
-
-    private void Awake() {
+    private void Awake()
+    {
         if (Instance == null)
         {
             Instance = this;
@@ -128,7 +49,105 @@ public class Env : MonoBehaviour
         InvokeRepeating("SpawnEnemy", startDelay, enemySpawnRate);
     }
 
-    private void Update() {
+    private void Update()
+    {
         Controls();
+    }
+
+    public void GainMana(int value)
+    {
+        mana += value;
+        UpdateManaUI();
+    }
+
+    public void UseMana(int value)
+    {
+        mana -= value;
+        UpdateManaUI();
+    }
+
+    private void UpdateManaUI()
+    {
+        manaUI.text = "Mana: " + mana;
+    }
+
+    private void DisableBurnSpell()
+    {
+        burnSpellOn = false;
+    }
+
+    public void BurnSpell()
+    {
+        if (mana >= burnSpellCost)
+        {
+            UseMana(burnSpellCost);
+            burnSpellOn = true;
+            Invoke("DisableBurnSpell", burnSpellDuration);
+            burnSpellEffect.Play();
+        }
+    }
+
+    private void DisableFreezeSpell()
+    {
+        freezeSpellOn = false;
+    }
+
+    public void FreezeSpell()
+    {
+        if (mana >= freezeSpellCost)
+        {
+            UseMana(freezeSpellCost);
+            freezeSpellOn = true;
+            Invoke("DisableFreezeSpell", freezeSpellDuration);
+            freezeSpellEffect.Play();
+        }
+    }
+
+    public void HealSpell()
+    {
+        if (tower && mana >= healSpellCost)
+        {
+            UseMana(healSpellCost);
+            tower.GetComponent<Tower>().Heal(healSpellAmount);
+            healSpellEffect.Play();
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        int xRand = Random.Range(-1, 2);
+        int yRand = Random.Range(-1, 2);
+
+        if (xRand == 0 && yRand == 0)
+        {
+            xRand = 1;
+        }
+
+        Vector2 position = new Vector2(xRand * xPositionLimit, yRand * yPositionLimit);
+
+        Instantiate(enemy, position, Quaternion.identity);
+    }
+
+    public void Defeat()
+    {
+        SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+    }
+
+    private void Controls()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            BurnSpell();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            FreezeSpell();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            HealSpell();
+        }
     }
 }

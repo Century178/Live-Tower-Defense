@@ -11,9 +11,36 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other) {
-            if (other.tag == "Tower") {
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void FixedUpdate()
+    {
+        if (Env.Instance.freezeSpellOn)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else
+        {
+            Move();
+        }
+
+        if (Env.Instance.burnSpellOn && !burning)
+        {
+            Burn();
+        }
+
+        CheckHealth();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other)
+        {
+            if (other.gameObject.CompareTag("Tower"))
+            {
                 other.GetComponent<Tower>().Damage(damage);
 
                 Destroy(gameObject);
@@ -22,46 +49,36 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Burn() {
+    private void Burn()
+    {
         burning = true;
         health -= Env.Instance.burnSpellDamage;
         damageEffect.Play();
         print("burned");
-        if (Env.Instance.burnSpellOn) {
+
+        if (Env.Instance.burnSpellOn)
+        {
             Invoke("Burn", 1);
-        } else {
+        }
+        else
+        {
             burning = false;
         }
     }
 
-    private void Move() {
+    private void Move()
+    {
         Vector2 direction = Vector3.zero - transform.position;
 
         rb.velocity = direction.normalized * speed * Time.fixedDeltaTime;
     }
 
-    private void CheckHealth() {
-        if(health <= 0) {
+    private void CheckHealth()
+    {
+        if (health <= 0)
+        {
             Destroy(gameObject);
             Env.Instance.GainMana(mana);
         }
-    }
-
-    private void Awake() {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    void FixedUpdate() {
-        if (Env.Instance.freezeSpellOn) {
-            rb.velocity = Vector2.zero;
-        } else {
-            Move();
-        }
-
-        if (Env.Instance.burnSpellOn && !burning) {
-            Burn();
-        }
-
-        CheckHealth();
     }
 }

@@ -7,26 +7,31 @@ public class Tower : MonoBehaviour
     private float maxHealth;
     [SerializeField] private TMP_Text healthUI;
 
-    public void Damage(float value) {
+    private void Awake()
+    {
+        maxHealth = health;
+    }
+
+    public void Damage(float value)
+    {
         health -= value;
         healthUI.text = health.ToString();
 
-        if (health <= 0) {
+        if (health <= 0)
+        {
             Env.Instance.Defeat();
         }
     }
 
-    public void Heal(float value) {
+    public void Heal(float value)
+    {
         health += value;
         
-        if (health > maxHealth) {
+        if (health > maxHealth)
+        {
             health = maxHealth;
         }
 
         healthUI.text = health.ToString();
-    }
-
-    private void Awake() {
-        maxHealth = health;
     }
 }
