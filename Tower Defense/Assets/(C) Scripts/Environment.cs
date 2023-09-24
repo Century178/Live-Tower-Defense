@@ -11,6 +11,7 @@ public class Environment : MonoBehaviour
 
     [SerializeField] private float startDelay = 2f;
     [SerializeField] private float spawnRate = 2f;
+    [SerializeField] private float rampUp = 0.01f;
     private float spawnTime;
 
     [SerializeField] private float xPositionLimit = 11f;
@@ -37,6 +38,7 @@ public class Environment : MonoBehaviour
             {
                 SpawnEnemy();
                 spawnTime = spawnRate;
+                spawnRate -= rampUp;
             }
         }
     }
