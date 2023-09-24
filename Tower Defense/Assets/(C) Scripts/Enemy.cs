@@ -58,6 +58,7 @@ public class Enemy : MonoBehaviour
     public IEnumerator Freeze(float duration)
     {
         isFrozen = true;
+        rb.velocity = Vector3.zero;
         yield return new WaitForSeconds(duration);
         isFrozen = false;
     }

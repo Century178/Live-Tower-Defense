@@ -24,6 +24,6 @@ public class SpellEffect : MonoBehaviour
 
     public void Resize(float radius)
     {
-        transform.localScale = new Vector3(radius, radius, radius);
+        transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
     }
 }

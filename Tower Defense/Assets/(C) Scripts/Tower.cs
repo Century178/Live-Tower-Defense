@@ -16,7 +16,6 @@ public class Tower : MonoBehaviour
     [Header("Health")]
     [SerializeField] private float maxHealth;
     private float health = 1;
-    [SerializeField] private int healCost;
     [SerializeField] private TextMeshProUGUI healthText;
 
     [Header("Mana")]
@@ -34,6 +33,10 @@ public class Tower : MonoBehaviour
     [SerializeField] private float freezeRadius;
     [SerializeField] private int freezeDuration;
     [SerializeField] private GameObject freezeEffect;
+
+    [Header("Heal Spell")]
+    [SerializeField] private int healCost;
+    [SerializeField] private int healValue;
     #endregion
 
     #region Unity Methods
@@ -62,7 +65,8 @@ public class Tower : MonoBehaviour
     public void Health(int value)
     {
         health += value;
-        healthText.text = "Health: " + health.ToString();
+        if (health > maxHealth) health = maxHealth;
+        healthText.text = "Health: " + health.ToString() + "/" + maxHealth.ToString();
 
         if (health <= 0) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -129,9 +133,8 @@ public class Tower : MonoBehaviour
     {
         if (mana >= healCost)
         {
-            if (health == maxHealth) return;
             Mana(-healCost);
-            health++;
+            Health(healValue);
         }
     }
     #endregion

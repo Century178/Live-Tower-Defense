@@ -167,7 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04baf94e8b6d1da48b4fa0260edf6a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4734499145523546669, guid: eb0d3bdef8af8664698e4d7cc46118ae, type: 3}
+  enemies:
+  - {fileID: 4734499145523546669, guid: eb0d3bdef8af8664698e4d7cc46118ae, type: 3}
+  - {fileID: 4789491724133089903, guid: 327dc510b38c7734897e9b7ecf0e38d2, type: 3}
+  - {fileID: 224295921278460361, guid: fc8e218b0fb84684eac4c90c1ff62a03, type: 3}
   startDelay: 2
   spawnRate: 2
   xPositionLimit: 11
@@ -554,7 +557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[LMB] Burn (5) | [RMB] Freeze (10) | [Space] Heal (15)'
+  m_text: '[LMB] Burn (1) | [RMB] Freeze (2) | [Space] Heal (3)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -769,8 +772,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -192080063
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 11357fd0eb6e8a440990f09ea2f74d83, type: 3}
   m_Color: {r: 0.5, g: 1, b: 0.25, a: 1}
@@ -819,17 +822,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxHealth: 10
-  healCost: 15
   healthText: {fileID: 1870038224}
-  initialMana: 50
+  initialMana: 10
   manaText: {fileID: 519117590}
-  burnCost: 5
-  burnRadius: 5
+  burnCost: 1
+  burnRadius: 2.5
   burnEffect: {fileID: 8671057957777825159, guid: 7761558b41452df47b255a379dee0571, type: 3}
-  freezeCost: 10
-  freezeRadius: 5
+  freezeCost: 2
+  freezeRadius: 2.5
   freezeDuration: 5
   freezeEffect: {fileID: 9002845248441113809, guid: 9418c91ddccd5514fb9504eedbeeaf4d, type: 3}
+  healCost: 3
+  healValue: 1
 --- !u!4 &1757448245
 Transform:
   m_ObjectHideFlags: 0
@@ -912,7 +916,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 86d93e8820ba355449eb801834348c46, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46e980e42b1bf7e47b501dcc892d5839, type: 3}
   m_Color: {r: 0.25, g: 0.5, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -961,7 +965,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Health: 10'
+  m_text: 'Health: 10/10'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
