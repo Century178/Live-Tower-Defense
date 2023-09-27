@@ -27,14 +27,10 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other)
+        if (other.TryGetComponent(out Tower tower))
         {
-            if (other.gameObject.CompareTag("Tower"))
-            {
-                other.GetComponent<Tower>().Health(-damage);
-
-                Death();
-            }
+            tower.Health(-damage);
+            Death();
         }
     }
 

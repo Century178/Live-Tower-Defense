@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SpellEffect : MonoBehaviour
 {
-    private float timeUntilDestroyed = 1;
-
     private SpriteRenderer sr;
     private float alpha;
 
@@ -13,13 +11,17 @@ public class SpellEffect : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         alpha = sr.color.a;
-        Destroy(gameObject, timeUntilDestroyed);
     }
 
     private void Update()
     {
-        alpha -= Time.deltaTime / timeUntilDestroyed;
+        alpha -= Time.deltaTime;
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, alpha);
+
+        if (alpha <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Resize(float radius)

@@ -79,57 +79,53 @@ public class Tower : MonoBehaviour
     #endregion
 
     #region Spells
-    public void BurnSpell()
+    private void BurnSpell()
     {
         if (mana >= burnCost)
         {
             Mana(-burnCost);
 
             Instantiate(burnEffect, worldMousePos, Quaternion.identity);
-            if (burnEffect.GetComponent<SpellEffect>() != null)
+            if (burnEffect.TryGetComponent(out SpellEffect effect))
             {
-                SpellEffect effect = burnEffect.GetComponent<SpellEffect>();
                 effect.Resize(burnRadius);
             }
 
             Collider2D[] enemies = Physics2D.OverlapCircleAll(worldMousePos, burnRadius, enemyLayer);
             foreach (Collider2D enemy in enemies)
             {
-                if (enemy.gameObject.GetComponent<Enemy>() != null)
+                if (enemy.gameObject.TryGetComponent(out Enemy enemyScript))
                 {
-                    Enemy enemyScript = enemy.gameObject.GetComponent<Enemy>();
                     enemyScript.Damage();
                 }
             }
         }
     }
 
-    public void FreezeSpell()
+    private void FreezeSpell()
     {
         if (mana >= freezeCost)
         {
             Mana(-freezeCost);
 
             Instantiate(freezeEffect, worldMousePos, Quaternion.identity);
-            if (freezeEffect.GetComponent<SpellEffect>() != null)
+            if (freezeEffect.TryGetComponent(out SpellEffect effect))
             {
-                SpellEffect effect = freezeEffect.GetComponent<SpellEffect>();
                 effect.Resize(freezeRadius);
             }
 
             Collider2D[] enemies = Physics2D.OverlapCircleAll(worldMousePos, freezeRadius, enemyLayer);
             foreach (Collider2D enemy in enemies)
             {
-                if (enemy.gameObject.GetComponent<Enemy>() != null)
+                if (enemy.gameObject.TryGetComponent(out Enemy enemyScript))
                 {
-                    Enemy enemyScript = enemy.gameObject.GetComponent<Enemy>();
                     enemyScript.StartCoroutine(enemyScript.Freeze(freezeDuration));
                 }
             }
         }
     }
 
-    public void HealSpell()
+    private void HealSpell()
     {
         if (mana >= healCost)
         {

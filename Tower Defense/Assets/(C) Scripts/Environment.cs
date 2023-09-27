@@ -24,8 +24,12 @@ public class Environment : MonoBehaviour
     {
         if (Instance != null) Destroy(gameObject);
         else Instance = this;
+    }
 
-        Invoke("SpawnEnemy", startDelay);
+    private IEnumerator Start()
+    {
+        yield return new WaitForSecondsRealtime(startDelay);
+        SpawnEnemy();
     }
 
     private void Update()
