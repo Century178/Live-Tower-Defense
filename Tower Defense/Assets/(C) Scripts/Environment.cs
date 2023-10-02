@@ -49,7 +49,7 @@ public class Environment : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Vector2 position = new Vector2(Random.Range(-1, 2) * xPositionLimit, Random.Range(-1, 2) * yPositionLimit);
+        Vector2 position = new Vector2(Mathf.Sign(Random.Range(-1, 1)) * xPositionLimit, Mathf.Sign(Random.Range(-1, 1)) * yPositionLimit);
 
         GameObject enemy = enemies[Random.Range(0, enemies.Length)];
         Instantiate(enemy, position, Quaternion.identity);
